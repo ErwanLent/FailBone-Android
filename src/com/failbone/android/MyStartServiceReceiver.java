@@ -19,10 +19,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class MyStartServiceReceiver extends BroadcastReceiver {
 	
@@ -57,14 +53,18 @@ public class MyStartServiceReceiver extends BroadcastReceiver {
 		private boolean successful = false;
 
 		protected void onProgressUpdate(Integer... progress) {
-
+			
 		}
 
 		protected void onPostExecute(Exception e) {
 			
-			Toast.makeText(mainContext.getApplicationContext(), response,
-					Toast.LENGTH_LONG).show();
-
+			SharedPreferences sharedPreferences = PreferenceManager
+					.getDefaultSharedPreferences(mainContext.getApplicationContext()
+							.getApplicationContext());
+			
+			SharedPreferences.Editor editor = sharedPreferences.edit();
+			editor.putString("response", response);
+			editor.commit();
 		}
 
 		@Override

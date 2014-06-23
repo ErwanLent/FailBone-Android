@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,13 +30,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gcm.GCMRegistrar;
 
 public class MainActivity extends Activity {
-
-	private LocationManager locationManager;
 
 	public double latitude = 0;
 	public double longitude = 0;
@@ -111,6 +107,23 @@ public class MainActivity extends Activity {
 
 	public void onBoneClick(View view) {
 		new MakeFail().execute();
+		
+		SharedPreferences sharedPreferences = PreferenceManager
+				.getDefaultSharedPreferences(getApplicationContext()
+						.getApplicationContext());
+		
+		String response = sharedPreferences.getString("response", "boned");
+		
+		Animation slideUpIn = AnimationUtils.loadAnimation(
+				getApplicationContext(), R.anim.slide_up_in);
+		TextView countTextView = (TextView) findViewById(R.id.countTextView);
+		countTextView.setText(response);
+		countTextView.startAnimation(slideUpIn);
+
+		MediaPlayer mp = MediaPlayer.create(getApplicationContext(),
+				R.raw.bone);
+		mp.start();
+		
 	}
 
 	private class MakeFail extends AsyncTask<Object, Integer, Exception> {
@@ -124,18 +137,6 @@ public class MainActivity extends Activity {
 
 		protected void onPostExecute(Exception e) {
 
-			Animation slideUpIn = AnimationUtils.loadAnimation(
-					getApplicationContext(), R.anim.slide_up_in);
-			TextView countTextView = (TextView) findViewById(R.id.countTextView);
-			countTextView.setText(response);
-			countTextView.startAnimation(slideUpIn);
-
-			MediaPlayer mp = MediaPlayer.create(getApplicationContext(),
-					R.raw.bone);
-			mp.start();
-
-			Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG)
-					.show();
 		}
 
 		@Override
