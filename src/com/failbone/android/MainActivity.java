@@ -117,28 +117,16 @@ public class MainActivity extends Activity {
 		Animation slideUpIn = AnimationUtils.loadAnimation(
 				getApplicationContext(), R.anim.slide_up_in);
 
-		final Animation slideDownOut = AnimationUtils.loadAnimation(
-				getApplicationContext(), R.anim.slide_down_out);
+		Animation slideHigher = AnimationUtils.loadAnimation(
+				getApplicationContext(), R.anim.slide_higher);
 
 		final TextView countTextView = (TextView) findViewById(R.id.countTextView);
-
-		slideUpIn.setAnimationListener(new Animation.AnimationListener() {
-			@Override
-			public void onAnimationStart(Animation arg0) {
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation arg0) {
-			}
-
-			@Override
-			public void onAnimationEnd(Animation arg0) {
-				countTextView.startAnimation(slideDownOut);
-			}
-		});
-
+		Button boneButton = (Button) findViewById(R.id.boneButton);
+		
 		countTextView.setText(response);
+		countTextView.setVisibility(View.VISIBLE);
 		countTextView.startAnimation(slideUpIn);
+		//boneButton.startAnimation(slideHigher);
 
 		MediaPlayer mp = MediaPlayer
 				.create(getApplicationContext(), R.raw.bone);
