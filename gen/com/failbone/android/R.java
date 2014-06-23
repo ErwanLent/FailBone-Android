@@ -9,7 +9,8 @@ package com.failbone.android;
 
 public final class R {
     public static final class anim {
-        public static final int slide_up_in=0x7f040000;
+        public static final int slide_down_out=0x7f040000;
+        public static final int slide_up_in=0x7f040001;
     }
     public static final class attr {
     }

@@ -18,8 +18,6 @@ public class MyScheduleReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		Log.v("custom_message", "Schedule Receiver");
-		
-		Toast.makeText(context.getApplicationContext(), "CALENDAR MOFO", Toast.LENGTH_LONG).show();
 
 		AlarmManager service = (AlarmManager) context
 				.getSystemService(Context.ALARM_SERVICE);
