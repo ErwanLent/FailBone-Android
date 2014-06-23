@@ -13,7 +13,8 @@ So the next time you see a hipster trip over his vintage Nike's or witness an ol
 
 ----------------------------------------
 
-![alt tag](http://i.imgur.com/XTm22gz.jpg)
-![alt tag](http://i.imgur.com/bqJiYcJ.jpg)
-![alt tag](http://i.imgur.com/zX59Xg3.jpg)
-![alt tag](http://i.imgur.com/R5PyP7j.jpg)
+![alt tag](http://i.imgur.com/3spgdAF.jpg)
+![alt tag](http://i.imgur.com/cMgSzSJ.jpg)
+![alt tag](http://i.imgur.com/ns5znGu.jpg)
+![alt tag](http://i.imgur.com/Bgjst59.jpg)
+![alt tag](http://i.imgur.com/zP7ZWor.jpg)
