@@ -11,6 +11,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -61,6 +63,14 @@ public class MyStartServiceReceiver extends BroadcastReceiver {
 			SharedPreferences sharedPreferences = PreferenceManager
 					.getDefaultSharedPreferences(mainContext.getApplicationContext()
 							.getApplicationContext());
+			
+			try {
+				JSONObject jObj = new JSONObject(response);
+				response = jObj.getString("count");
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				response = "boned";
+			}
 			
 			SharedPreferences.Editor editor = sharedPreferences.edit();
 			editor.putString("response", response);
