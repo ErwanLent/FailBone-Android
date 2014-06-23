@@ -10,3 +10,10 @@ No matter how good looking or how cool you are, you still fail from time to time
 With one tap you can announce a failure and EVERYONE nearby will get your resounding push notification. 
 
 So the next time you see a hipster trip over his vintage Nike's or witness an old man get hit in the groin, use FailBone to celebrate this little piece of history. 
+
+----------------------------------------
+
+![alt tag](http://i.imgur.com/XTm22gz.jpg)
+![alt tag](http://i.imgur.com/bqJiYcJ.jpg)
+![alt tag](http://i.imgur.com/zX59Xg3.jpg)
+![alt tag](http://i.imgur.com/R5PyP7j.jpg)
