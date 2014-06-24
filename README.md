@@ -1,7 +1,7 @@
 FailBone-Android
 ================
 
-A fun app made at a miniature hackathon. FailBone makes a tromone sound whenever someone fails.
+A fun app made at a miniature hackathon. FailBone makes a trombone sound whenever someone fails.
 
 ----------------------------------------
 
