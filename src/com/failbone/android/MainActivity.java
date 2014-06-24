@@ -85,6 +85,9 @@ public class MainActivity extends Activity {
 		}
 
 		if (!sharedPreferences.getBoolean("registered", false)) {
+			getApplicationContext().startService(new Intent(getApplicationContext(),
+					LocationService.class));
+			
 			new Register().execute();
 		}
 
@@ -127,11 +130,6 @@ public class MainActivity extends Activity {
 		countTextView.setVisibility(View.VISIBLE);
 		countTextView.startAnimation(slideUpIn);
 		// boneButton.startAnimation(slideHigher);
-
-		MediaPlayer mp = MediaPlayer
-				.create(getApplicationContext(), R.raw.bone);
-		mp.start();
-
 	}
 
 	private class MakeFail extends AsyncTask<Object, Integer, Exception> {
@@ -238,6 +236,16 @@ public class MainActivity extends Activity {
 			// Create a new HttpClient and Post Header
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httpPost = new HttpPost("http://failbone.com/register");
+			
+			while (registrationId == null || registrationId.length() <= 1)
+			{
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 
 			try {
 				// Add your data
@@ -245,6 +253,9 @@ public class MainActivity extends Activity {
 
 				postDataPairs.add(new BasicNameValuePair("deviceId",
 						registrationId));
+				postDataPairs.add(new BasicNameValuePair("os",
+						"android"));
+
 
 				httpPost.setEntity(new UrlEncodedFormEntity(postDataPairs));
 
