@@ -75,6 +75,8 @@ public class MyStartServiceReceiver extends BroadcastReceiver {
 			SharedPreferences.Editor editor = sharedPreferences.edit();
 			editor.putString("response", response);
 			editor.commit();
+			
+			Log.e("server response", response);
 		}
 
 		@Override

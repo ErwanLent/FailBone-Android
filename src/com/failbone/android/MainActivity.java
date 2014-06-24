@@ -30,6 +30,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gcm.GCMRegistrar;
 
@@ -74,7 +75,7 @@ public class MainActivity extends Activity {
 		SharedPreferences sharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(getApplicationContext()
 						.getApplicationContext());
-		
+
 		if (sharedPreferences.getString("deviceId", "").length() <= 1) {
 			SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -84,8 +85,7 @@ public class MainActivity extends Activity {
 		}
 
 		if (!sharedPreferences.getBoolean("registered", false)) {
-			getApplicationContext().startService(
-					new Intent(getApplicationContext(), LocationService.class));
+			new Register().execute();
 		}
 
 		AlarmManager service = (AlarmManager) getApplicationContext()
@@ -122,11 +122,11 @@ public class MainActivity extends Activity {
 
 		final TextView countTextView = (TextView) findViewById(R.id.countTextView);
 		Button boneButton = (Button) findViewById(R.id.boneButton);
-		
+
 		countTextView.setText(response);
 		countTextView.setVisibility(View.VISIBLE);
 		countTextView.startAnimation(slideUpIn);
-		//boneButton.startAnimation(slideHigher);
+		// boneButton.startAnimation(slideHigher);
 
 		MediaPlayer mp = MediaPlayer
 				.create(getApplicationContext(), R.raw.bone);
@@ -166,6 +166,9 @@ public class MainActivity extends Activity {
 			// Create a new HttpClient and Post Header
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httpPost = new HttpPost("http://failbone.com/bone");
+			
+			SharedPreferences sharedPreferences = PreferenceManager
+					.getDefaultSharedPreferences(getApplicationContext());
 
 			try {
 				// Add your data
@@ -173,10 +176,75 @@ public class MainActivity extends Activity {
 
 				postDataPairs.add(new BasicNameValuePair("deviceId",
 						registrationId));
-				postDataPairs.add(new BasicNameValuePair("latitude", Double
-						.toString(latitude)));
-				postDataPairs.add(new BasicNameValuePair("longitude", Double
-						.toString(longitude)));
+				postDataPairs.add(new BasicNameValuePair("os",
+						"android"));
+				postDataPairs.add(new BasicNameValuePair("lat", sharedPreferences.getString("latitude", "")));
+				postDataPairs.add(new BasicNameValuePair("long", sharedPreferences.getString("longitude", "")));
+
+				httpPost.setEntity(new UrlEncodedFormEntity(postDataPairs));
+
+				// Execute HTTP Post Request
+				ResponseHandler<String> responseHandler = new BasicResponseHandler();
+				response = httpclient.execute(httpPost, responseHandler);
+
+				Log.d("custom_message", "Response: " + response);
+
+				return false;
+			} catch (Exception e) {
+				Log.d("custom_error", "Exception: " + e.toString());
+				return false;
+			}
+		}
+	}
+	
+	private class Register extends AsyncTask<Object, Integer, Exception> {
+
+		private String response = "";
+		private boolean successful = false;
+
+		protected void onProgressUpdate(Integer... progress) {
+
+		}
+
+		protected void onPostExecute(Exception e) {
+
+			if (!response.contains("not ok") && response.contains("ok")) {
+				SharedPreferences sharedPreferences = PreferenceManager
+						.getDefaultSharedPreferences(getApplicationContext()
+								.getApplicationContext());
+
+				SharedPreferences.Editor editor = sharedPreferences.edit();
+				editor.putBoolean("registered", true);
+				editor.commit();
+			}
+		}
+
+		@Override
+		protected Exception doInBackground(Object... params) {
+			try {
+
+				if (!postData()) {
+					return new Exception("Failure");
+				}
+
+				successful = true;
+				return new Exception("Success");
+			} catch (Exception e) {
+				return e;
+			}
+		}
+
+		public boolean postData() {
+			// Create a new HttpClient and Post Header
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httpPost = new HttpPost("http://failbone.com/register");
+
+			try {
+				// Add your data
+				List<NameValuePair> postDataPairs = new ArrayList<NameValuePair>();
+
+				postDataPairs.add(new BasicNameValuePair("deviceId",
+						registrationId));
 
 				httpPost.setEntity(new UrlEncodedFormEntity(postDataPairs));
 
